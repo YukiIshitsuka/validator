@@ -1,8 +1,8 @@
-# @lu/validator
+## @lu/validator
 
 @lu/validator is a library that validates and converts json format data.
 
-# Usage
+## Sample
 
 ```typescript
 import { Validator, ValidationError } from "./validator";
