@@ -1,0 +1,101 @@
+{
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended",
+		"plugin:prettier/recommended",
+		"prettier/@typescript-eslint"
+	],
+	"plugins": [
+		"@typescript-eslint"
+	],
+	"env": {
+		"node": true,
+		"es6": true
+	},
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"sourceType": "module",
+		"project": "./tsconfig.json"
+	},
+	"rules": {
+		"camelcase": "off",
+		"@typescript-eslint/naming-convention": [
+			"error",
+			{
+				"selector": "default",
+				"format": [
+					"camelCase"
+				]
+			},
+			{
+				"selector": "variable",
+				"format": [
+					"camelCase"
+				],
+				"leadingUnderscore": "allow"
+			},
+			{
+				"selector": "parameter",
+				"format": [
+					"camelCase"
+				],
+				"leadingUnderscore": "allow"
+			},
+			{
+				"selector": "memberLike",
+				"modifiers": [
+					"private"
+				],
+				"format": [
+					"camelCase"
+				],
+				"leadingUnderscore": "allow"
+			},
+			{
+				"selector": "function",
+				"format": [
+					"camelCase"
+				]
+			},
+			{
+				"selector": "method",
+				"format": [
+					"camelCase"
+				]
+			},
+			{
+				"selector": "property",
+				"format": [],
+				"leadingUnderscore": "allow"
+			},
+			{
+				"selector": "typeLike",
+				"format": [
+					"PascalCase"
+				]
+			},
+			{
+				"selector": "class",
+				"format": [
+					"PascalCase"
+				]
+			}
+		],
+		"@typescript-eslint/explicit-function-return-type": "off",
+		"@typescript-eslint/no-explicit-any": "off",
+		"indent": "off",
+		"prettier/prettier": [
+			"error",
+			{
+				"printWidth": 120,
+				"singleQuote": false,
+				"semi": true,
+				"useTabs": true
+			}
+		],
+		"@typescript-eslint/no-empty-interface": "off",
+		"no-irregular-whitespace": "off",
+		"@typescript-eslint/ban-types": "off"
+	}
+}
