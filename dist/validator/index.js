@@ -325,35 +325,49 @@ var Validator = /** @class */ (function () {
     };
     Validator.prototype.setNestArrayValue = function (key, value, rule) {
         return __awaiter(this, void 0, void 0, function () {
-            var values, errors, index, value_1, value_1_1, v, response, e_2_1;
-            var e_2, _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, _b, _c, values, errors, index, value_1, value_1_1, v, response, e_2_1;
+            var e_2, _d;
+            return __generator(this, function (_e) {
+                switch (_e.label) {
                     case 0:
                         if (!Array.isArray(value)) {
                             return [2 /*return*/, this.addErrorObject(key, this.replaceErrorMessage(rule))];
                         }
-                        if (value.length === 0) {
-                            if (rule.isOptional) {
-                                this.values[key] = value;
-                                return [2 /*return*/];
-                            }
-                            return [2 /*return*/, this.addErrorObject(key, this.replaceErrorMessage(rule))];
-                        }
+                        if (!(value.length === 0)) return [3 /*break*/, 6];
+                        if (!rule.isOptional) return [3 /*break*/, 1];
+                        this.values[key] = value;
+                        return [2 /*return*/];
+                    case 1:
+                        if (!rule.defaultValue) return [3 /*break*/, 5];
+                        _a = this.values;
+                        _b = key;
+                        if (!(typeof rule.defaultValue === "function")) return [3 /*break*/, 3];
+                        return [4 /*yield*/, rule.defaultValue()];
+                    case 2:
+                        _c = _e.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        _c = rule.defaultValue;
+                        _e.label = 4;
+                    case 4:
+                        _a[_b] = _c;
+                        return [2 /*return*/];
+                    case 5: return [2 /*return*/, this.addErrorObject(key, this.replaceErrorMessage(rule))];
+                    case 6:
                         values = [];
                         errors = {};
                         index = 0;
-                        _b.label = 1;
-                    case 1:
-                        _b.trys.push([1, 6, 7, 8]);
+                        _e.label = 7;
+                    case 7:
+                        _e.trys.push([7, 12, 13, 14]);
                         value_1 = __values(value), value_1_1 = value_1.next();
-                        _b.label = 2;
-                    case 2:
-                        if (!!value_1_1.done) return [3 /*break*/, 5];
+                        _e.label = 8;
+                    case 8:
+                        if (!!value_1_1.done) return [3 /*break*/, 11];
                         v = value_1_1.value;
                         return [4 /*yield*/, Validator.validate(v, rule.rules)];
-                    case 3:
-                        response = _b.sent();
+                    case 9:
+                        response = _e.sent();
                         if ("errors" in response) {
                             errors[index] = response.errors;
                         }
@@ -361,22 +375,22 @@ var Validator = /** @class */ (function () {
                             values.push(response.values);
                         }
                         index++;
-                        _b.label = 4;
-                    case 4:
+                        _e.label = 10;
+                    case 10:
                         value_1_1 = value_1.next();
-                        return [3 /*break*/, 2];
-                    case 5: return [3 /*break*/, 8];
-                    case 6:
-                        e_2_1 = _b.sent();
-                        e_2 = { error: e_2_1 };
                         return [3 /*break*/, 8];
-                    case 7:
+                    case 11: return [3 /*break*/, 14];
+                    case 12:
+                        e_2_1 = _e.sent();
+                        e_2 = { error: e_2_1 };
+                        return [3 /*break*/, 14];
+                    case 13:
                         try {
-                            if (value_1_1 && !value_1_1.done && (_a = value_1["return"])) _a.call(value_1);
+                            if (value_1_1 && !value_1_1.done && (_d = value_1["return"])) _d.call(value_1);
                         }
                         finally { if (e_2) throw e_2.error; }
                         return [7 /*endfinally*/];
-                    case 8:
+                    case 14:
                         if (Object.values(errors).length) {
                             this.addErrorObject(key, errors);
                         }

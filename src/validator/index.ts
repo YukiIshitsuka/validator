@@ -170,6 +170,9 @@ export class Validator<T> {
 			if (rule.isOptional) {
 				this.values[key] = value;
 				return;
+			} else if (rule.defaultValue) {
+				this.values[key] = typeof rule.defaultValue === "function" ? await rule.defaultValue() : rule.defaultValue;
+				return;
 			}
 			return this.addErrorObject(key, this.replaceErrorMessage(rule));
 		}

@@ -13,7 +13,7 @@ export const doValidate = async (): Promise<void> => {
 	try {
 		const response = await Validator.parse<SigTest>({
 			x: 1, options: {
-				a: [{ label: "test" ,value:1}],
+				a: [{ label: "test" }],
 				b: [{ value: 1, label: "test" }],
 		}}, {
 			options: {
@@ -22,7 +22,7 @@ export const doValidate = async (): Promise<void> => {
 				rules: {
 					value: {
 						type: "number",
-						label:"value"
+						label:"vallue"
 					},
 					label: {
 						type: "string",
