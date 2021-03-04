@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"jest": {
 		"moduleFileExtensions": [
 			"ts",
@@ -18,8 +19,12 @@
 		}
 	},
 	"scripts": {
+		"clean": "rimraf dist",
 		"lint": "eslint 'src/**/*.ts'",
-		"test": "jest"
+		"tsc": "tsc",
+		"build": "run-s clean tsc",
+		"test": "jest",
+		"prepublishOnly": "npm run build"
 	},
 	"author": "Yuki Ishitsuka",
 	"license": "MIT",
@@ -36,7 +41,9 @@
 		"eslint-plugin-security": "^1.4.0",
 		"eslint-plugin-standard": "^4.0.1",
 		"jest": "^26.4.2",
+		"npm-run-all": "^4.1.5",
 		"prettier": "^2.1.2",
+		"rimraf": "^3.0.2",
 		"ts-jest": "^26.4.0",
 		"ts-node": "^9.0.0",
 		"typescript": "^4.0.3"
