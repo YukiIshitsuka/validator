@@ -234,7 +234,7 @@ var Validator = /** @class */ (function () {
             return __generator(this, function (_d) {
                 switch (_d.label) {
                     case 0:
-                        if (!(!this.data || typeof this.data !== "object" || !(key in this.data))) return [3 /*break*/, 6];
+                        if (!(!this.data || typeof this.data !== "object" || !(key in this.data) || this.data[key] === "")) return [3 /*break*/, 6];
                         // defaultのセットがある場合は、その値が使える。
                         if (rule.isOptional)
                             return [2 /*return*/];

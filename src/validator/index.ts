@@ -109,7 +109,7 @@ export class Validator<T> {
 		}
 	}
 	private async setValue(key: string, rule: Rule): Promise<void> {
-		if (!this.data || typeof this.data !== "object" || !(key in this.data)) {
+		if (!this.data || typeof this.data !== "object" || !(key in this.data) || this.data[key] === "") {
 			// defaultのセットがある場合は、その値が使える。
 			if (rule.isOptional) return;
 			if (rule.defaultValue !== undefined) {
