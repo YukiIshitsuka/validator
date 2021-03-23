@@ -108,18 +108,27 @@ export class Validator<T> {
 			this.values[key] = value;
 		}
 	}
+	protected getData(data: any, key: string): any {
+		if (!data) return undefined;
+		if (typeof data !== "object") return undefined;
+		if (!(key in data)) return undefined;
+		return data[key];
+	}
 	private async setValue(key: string, rule: Rule): Promise<void> {
 		if (!this.data || typeof this.data !== "object" || !(key in this.data) || this.data[key] === "") {
 			// defaultのセットがある場合は、その値が使える。
 			if (rule.isOptional) return;
 			if (rule.defaultValue !== undefined) {
 				this.values[key] = typeof rule.defaultValue === "function" ? await rule.defaultValue() : rule.defaultValue;
+				return;
 			} else {
-				this.addErrorObject(key, this.replaceErrorMessage(rule));
+				// custom系はそのまま投げるため、skip。
+				if (rule.type !== "customAll" && rule.type !== "custom") {
+					return this.addErrorObject(key, this.replaceErrorMessage(rule));
+				}
 			}
-			return;
 		}
-		const value = this.data[key];
+		const value = this.getData(this.data, key);
 		// nestの処理
 		if (rule.type === "nest") {
 			return this.setNestValue(key, value, rule);

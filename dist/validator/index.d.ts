@@ -34,6 +34,7 @@ export declare class Validator<T> {
     constructor(data: any, rules: Rules<T>);
     private execute;
     private set;
+    protected getData(data: any, key: string): any;
     private setValue;
     private setNestValue;
     private setNestArrayValue;

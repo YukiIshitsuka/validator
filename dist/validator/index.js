@@ -228,13 +228,22 @@ var Validator = /** @class */ (function () {
             });
         });
     };
+    Validator.prototype.getData = function (data, key) {
+        if (!data)
+            return undefined;
+        if (typeof data !== "object")
+            return undefined;
+        if (!(key in data))
+            return undefined;
+        return data[key];
+    };
     Validator.prototype.setValue = function (key, rule) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b, _c, value;
             return __generator(this, function (_d) {
                 switch (_d.label) {
                     case 0:
-                        if (!(!this.data || typeof this.data !== "object" || !(key in this.data) || this.data[key] === "")) return [3 /*break*/, 6];
+                        if (!(!this.data || typeof this.data !== "object" || !(key in this.data) || this.data[key] === "")) return [3 /*break*/, 5];
                         // defaultのセットがある場合は、その値が使える。
                         if (rule.isOptional)
                             return [2 /*return*/];
@@ -251,13 +260,15 @@ var Validator = /** @class */ (function () {
                         _d.label = 3;
                     case 3:
                         _a[_b] = _c;
-                        return [3 /*break*/, 5];
+                        return [2 /*return*/];
                     case 4:
-                        this.addErrorObject(key, this.replaceErrorMessage(rule));
+                        // custom系はそのまま投げるため、skip。
+                        if (rule.type !== "customAll" && rule.type !== "custom") {
+                            return [2 /*return*/, this.addErrorObject(key, this.replaceErrorMessage(rule))];
+                        }
                         _d.label = 5;
-                    case 5: return [2 /*return*/];
-                    case 6:
-                        value = this.data[key];
+                    case 5:
+                        value = this.getData(this.data, key);
                         // nestの処理
                         if (rule.type === "nest") {
                             return [2 /*return*/, this.setNestValue(key, value, rule)];
@@ -285,14 +296,14 @@ var Validator = /** @class */ (function () {
                             return [2 /*return*/, this.setArrayValue(key, value, rule)];
                         }
                         return [4 /*yield*/, this.isValid(value, rule)];
-                    case 7:
+                    case 6:
                         // 上記以外
                         if (!(_d.sent())) {
                             return [2 /*return*/, this.addErrorObject(key, this.replaceErrorMessage(rule))];
                         }
                         // this.values[key] = value;
                         return [4 /*yield*/, this.set(key, value, rule.convert)];
-                    case 8:
+                    case 7:
                         // this.values[key] = value;
                         _d.sent();
                         return [2 /*return*/];
